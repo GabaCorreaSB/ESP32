@@ -17,7 +17,7 @@ int valorLDR = 0;
 void setup() {
 
   // Iniciando a conexão com o SERIAL na velocidade especificada entre ().
-  Serial.begin(115200);
+  Serial.begin(115200);\
 
   // deinifir modo de I/O do pino de LED.
   pinMode(pinoLED, OUTPUT);
