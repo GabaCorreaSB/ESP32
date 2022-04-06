@@ -15,8 +15,8 @@
 
 #include "RoboCore_SMW_SX1276M0.h"
 #include "DHT.h"
-#include "RoboCore_MMA8452Q.h"
 #include "ArduinoJson.h"
+#include "RoboCore_MMA8452Q.h"
 #include "HardwareSerial.h"
 
 //------------------------------------------------------
@@ -46,8 +46,8 @@ SMW_SX1276M0 lorawan(LoRaSerial);
 CommandResponse response;
 
 // Inserindo as chaves APPEUI e APPKEY, conforme configurado na plataforma ProIoT
-const char APPEUI[] = "b754502cd24c9b7a"; // EUI Application
-const char APPKEY[] = "d98c268704cb1141dd6a97c7cb79e428"; //Application Key
+const char APPEUI[] = "50f8a500000104c8"; // EUI Application
+const char APPKEY[] = "6f3246e0501cd68fd817dd733f781db9"; //Application Key
 
 // Criando variavel para determinar de quanto em quanto tempo a informação via LoRaWan sera enviada
 const unsigned long PAUSE_TIME = 300000; // [ms] (5 min)
