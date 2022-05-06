@@ -1,17 +1,17 @@
-/*******************************************************
- * Codigo para conexão com a rede lorawan e o Dashboard
- * para monitorar todos os modulos do IoT DevKit
- *
- */
+/********************************************************
+ * Codigo para conexão com a rede lorawan e o Dashboard *
+ * para monitorar todos os modulos do IoT DevKit        *
+ *                                                      *
+ ********************************************************/
 
 #if !defined(ARDUINO_ESP32_DEV) // ESP 32
-#error Use this example with the ESP32
+#error Use esse código somente com um ESP32
 #endif
 
 //------------------------------------------------------
 // Libraries
 
-// Incluindo todas as libraries que usaremos no codigo
+// Incluindo todas as libraries que serão utilizadas no codigo
 
 #include "RoboCore_SMW_SX1276M0.h"
 #include "DHT.h"
@@ -46,8 +46,8 @@ SMW_SX1276M0 lorawan(LoRaSerial);
 CommandResponse response;
 
 // Inserindo as chaves APPEUI e APPKEY, conforme configurado na plataforma ProIoT
-const char APPEUI[] = "50f8a500000104c8"; // EUI Application
-const char APPKEY[] = "6f3246e0501cd68fd817dd733f781db9"; //Application Key
+const char APPEUI[] = "b46e7e643e30c16a"; // EUI Application
+const char APPKEY[] = "f1f5c1f026184b43ac9518fad129f7f7"; //Application Key
 
 // Criando variavel para determinar de quanto em quanto tempo a informação via LoRaWan sera enviada
 const unsigned long PAUSE_TIME = 300000; // [ms] (5 min)
@@ -113,7 +113,7 @@ void setup() {
   // Configurando o modo de operação do LoRaWAN Bee para OTAA
   response = lorawan.set_JoinMode(SMW_SX1276M0_JOIN_MODE_OTAA);
   if(response == CommandResponse::OK){
-    Serial.println(F("Conncetion mode set to OTAA"));
+    Serial.println(F("Connection mode set to OTAA"));
   } else {
     Serial.println(F("Error setting the join mode"));
   }
@@ -169,7 +169,7 @@ void enviaDados(){
   json["L"] = valorLDR;
   json["X"] = x;
   json["Y"] = y;
-  json["Z"] = z;
+  json["Z"] = z; 
 
   // Criando uma String chamada payload que ira conter todas as informacoes do JSON
   String payload = "";
@@ -211,10 +211,10 @@ void loop() {
 
       timeout = millis() + PAUSE_TIME;
     }
-  } else {
+  } if else(lorawan.isDisconnected()) {
 
     // Se nao conseguir se conectar a rede LoRaWAN, imprime no monitor serial
-    // "." a cada 5 segundos
+    // um "." a cada 5 segundos
     if(timeout < millis()){
       Serial.println('.');
       timeout = millis() + 5000; // 5 s
@@ -227,7 +227,7 @@ void loop() {
 //--------------------------------------------------------
 
 // Verificando o que foi recebido do modulo LoRaWAN Bee e, se o que foi recebido
-// for um evento do tipo JOINED, informa que se conectou no MOnitor Serial e
+// for um evento do tipo JOINED, informa que se conectou no Monitor Serial e
 // acende o LED do IoT DevKit
 
 void event_handler(Event type){
